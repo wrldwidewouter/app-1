@@ -1,0 +1,64 @@
+extends ../layout
+
+block content
+
+  .page-header
+    h2
+      i.fa.fa-picture-o
+      | Analytics API
+  .row
+    .col-sm-12
+      p= accountSummaries.username
+  form(role='form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='analyticsMetaData', value=JSON.stringify(analyticsMetaData))
+    input(type='hidden', name='accountSummaries', value=JSON.stringify(accountSummaries))
+    .row
+      .col-sm-6
+        h5= 'Accounts'
+        select.form-control(name='account')#accountSummaries_accounts
+          for item, i in accountSummaries.items
+            option(value=item.id)= item.name
+        h5= 'Properties'
+        select.form-control(name='property')#accountSummaries_properties
+          for item, i in accountSummaries.items[0].webProperties
+            option(value=item.id)= item.name
+        h5= 'Profiles'
+        select.form-control(name='profile')#accountSummaries_profiles
+          for item, i in accountSummaries.items[0].webProperties[0].profiles
+            option(value='ga:'+item.id)= item.name
+      .col-sm-6
+        h5= 'Start date'
+        input(name='startdate', style='width:100%', value=(postVar)?postVar.startdate:'').form-control.datepicker#accountSummaries_startdate
+        h5= 'End date'
+        input(name='enddate', style='width:100%', value=(postVar)?postVar.enddate:'').form-control.datepicker#accountSummaries_enddate
+        h5= 'Metrics'
+        select(name='metrics', multiple='', class='s2-editable').select2#accountSummaries_metrics     
+          for item, i in analyticsMetaData.mgroups
+            optgroup(label=item)
+              for _item, i in analyticsMetaData.metrics[item]
+                option(value=_item)= _item.substring(3,_item.length)
+        h5= 'Dimensions'
+        select(name='dimensions', multiple='', class='s2-editable').select2#accountSummaries_dimensions
+          for item, i in analyticsMetaData.dgroups
+            optgroup(label=item)
+              for _item, i in analyticsMetaData.dimensions[item]
+                option(value=_item)= _item.substring(3,_item.length)
+        br 
+        br
+    .row
+      .col-sm-12
+        button.btn.btn-primary(type='submit')
+          span.ion-paper-airplane
+          | Generate rapport
+        //https://www.googleapis.com/analytics/v3/metadata/ga/columns?pp=1
+block js
+  script(type="text/javascript").
+    var data = !{JSON.stringify(accountSummaries)};
+    var result = !{(result)?JSON.stringify(result):'[]'};
+    var metrics = !{(postVar)?JSON.stringify(postVar.metrics):'[]'};
+    var dimensions = !{(postVar)?JSON.stringify(postVar.dimensions):'[]'};
+    var account = !{(postVar)?JSON.stringify(postVar.account):'[]'};
+    var property = !{(postVar)?JSON.stringify(postVar.property):'[]'};
+    var profile = !{(postVar)?JSON.stringify(postVar.profile):'[]'};
+

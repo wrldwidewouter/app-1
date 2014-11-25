@@ -1,0 +1,63 @@
+.select2-choices {
+/*  height: 44px;
+  padding: 6px 12px;
+  font-size: 13px;
+  line-height: 1.42857143;*/
+  color: #444444;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.select2-choices:focus {
+  border-color: #999999;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(153, 153, 153, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(153, 153, 153, 0.6);
+}
+.datepicker {
+    padding: 4px 15px;
+}
+
+.select2-drop-active,
+.select2-drop.select2-drop-above.select2-drop-active,
+.select2-container-multi.select2-container-active .select2-choices {
+  border-color: #999999;
+}
+
+.select2-container-multi .select2-choices {
+  border-color: #f0f0f0;
+  background-image: none;
+}
+
+.select2-results .select2-highlighted {
+background: #2ac5ee;
+color: #fff;
+}
+
+.select2-container-multi .select2-choices {
+    /*min-height: 43px;*/
+}
+
+.datepicker td.active, .datepicker td.active:hover {
+    background-image: linear-gradient(to bottom, #2ac5ee, #2ac5ee);
+}
+
+.select2-container-multi .select2-choices .select2-search-choice {
+    /*margin: 2px 0px 2px 2px;*/
+    /*padding: 11px 5px 11px 18px;*/
+}
+
+.select2-container-multi .select2-search-choice-close {
+    /*left: 3px;*/
+    /*top: 11px;*/
+}
+
+a, input {
+   outline: 0;
+}
