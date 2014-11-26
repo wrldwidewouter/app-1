@@ -230,5 +230,60 @@ $('.datepicker').datepicker({
 // new fork
 // http://jsfiddle.net/955hwpep/8/
 
+
+    $('.select2-choices').on('click', 'div', function () {
+        $(this).wrapInner('<span contenteditable="" class="s2-edit"/>');
+        setTimeout(function () {
+            $('.s2-edit').selectText().focus();
+        }, 200);
+    }).on('blur', '.s2-edit', function () {
+            updateSelectBox($(this).parents('.select2-container').attr('id'));
+            $(this).parent().html($(this).parent().text());
+
+        }).on('keypress', '.select2-search-choice .s2-edit', function (e) {
+            if (e.which == 13) {
+                $(this).blur();
+                return false;
+            }
+        });
+    
+    function updateSelectBox(s2containerId) {
+        var s2id = '#' + s2containerId;
+        var id = '#' + s2id.substr(6);
+        var newVal = [];
+        $('div', s2id).each(function () {
+            var optionName = $(this).text();
+            var optionValue = optionNameToValue(optionName);
+            newVal.push(optionValue);
+            if (!$('option[value="' + optionValue + '"]', id).length) {
+                $(id).append('<option value="' + optionValue + '">' + optionName + '</option>');
+            }
+        });
+        
+        $(id).val(newVal).trigger('change');
+        console.log($(id).val());
+    }
+    
+    function optionNameToValue(name) {
+        return 'ga:' + name;
+    }
+    
+    jQuery.fn.selectText = function () {
+        var range, selection;
+        return this.each(function () {
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(this);
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(this);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        });
+    };
+
 /////////////////////////////////////////////////////////////////////////////////////////
 });

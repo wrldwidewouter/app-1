@@ -13,6 +13,8 @@ logs
 results
 tmp
 
+app-1.sln
+app-1.njsproj
 npm-debug.log
 node_modules
 config
